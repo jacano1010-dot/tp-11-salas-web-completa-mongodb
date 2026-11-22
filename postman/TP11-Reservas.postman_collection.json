@@ -1,0 +1,883 @@
+{
+  "info": {
+    "_postman_id": "b1f4c7a0-5d2e-4c19-9a7b-2e6f8d0c4a11",
+    "name": "TP 11 - Reemplazo completo de reservas",
+    "description": "Pruebas del TP11. Importar también el entorno TP11-Reservas.postman_environment.json y completar la variable 'id' con el ID real de Ana Ejemplo. Para observar el 303, desactivar Settings > Automatically follow redirects. Los GET usan Params vacío y Body none.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "00 - Preparacion de datos",
+      "item": [
+        {
+          "name": "Alta Ana desde el formulario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Ana Ejemplo",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ana@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Mañana",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "2",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas"
+              ]
+            },
+            "description": "Esperado: 302, Location /reservas. Guardar el ID en la variable 'id'."
+          }
+        },
+        {
+          "name": "Alta Bruno desde el formulario",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Bruno Ejemplo",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "bruno@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Sur",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Tarde",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "3",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas"
+              ]
+            },
+            "description": "Esperado: 302, Location /reservas. Guardar el ID en 'idBruno'."
+          }
+        },
+        {
+          "name": "Verificar Ana por API",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Esperado: 200, estado pendiente, personas 2."
+          }
+        }
+      ]
+    },
+    {
+      "name": "01 - Edicion web",
+      "item": [
+        {
+          "name": "1. Abrir edicion (precarga)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 200 con los siete campos precargados. Body none."
+          }
+        },
+        {
+          "name": "2. Guardar desde web (303)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Ana Ejemplo",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ana@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Mañana",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "4",
+                  "type": "text"
+                },
+                {
+                  "key": "estado",
+                  "value": "confirmada",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 303, Location /reservas/{{id}}. Siete campos enviados."
+          }
+        },
+        {
+          "name": "3. Verificar por API",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Esperado: mismo ID, personas 4, estado confirmada."
+          }
+        },
+        {
+          "name": "4. Cancelar (abrir y no enviar)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 200. No enviar el POST: el documento no cambia."
+          }
+        },
+        {
+          "name": "5. Formulario invalido (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Prueba Invalida",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ana@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Mañana",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "0",
+                  "type": "text"
+                },
+                {
+                  "key": "estado",
+                  "value": "confirmada",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 400 HTML con personas=0 y 'Prueba Invalida' conservados."
+          }
+        },
+        {
+          "name": "6. Corregir y reenviar (303)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Ana Ejemplo",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ana@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Mañana",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "5",
+                  "type": "text"
+                },
+                {
+                  "key": "estado",
+                  "value": "confirmada",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 303 con personas 5."
+          }
+        },
+        {
+          "name": "Detalle tras guardar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Esperado: 200 con los valores guardados."
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - PUT API y coherencia",
+      "item": [
+        {
+          "name": "7. PUT completo (200)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estudiante\": \"Ana Ejemplo\",\n  \"email\": \"ana@example.com\",\n  \"sala\": \"Sala Norte\",\n  \"fecha\": \"2026-11-04\",\n  \"turno\": \"Mañana\",\n  \"personas\": 3,\n  \"estado\": \"pendiente\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Esperado: 200 JSON, mismo ID, personas 3, estado pendiente."
+          }
+        },
+        {
+          "name": "8. Precarga web tras el PUT",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: siete campos coincidentes con el PUT."
+          }
+        },
+        {
+          "name": "9. PUT incompleto sin estado (400)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"estudiante\": \"Ana Ejemplo\",\n  \"email\": \"ana@example.com\",\n  \"sala\": \"Sala Norte\",\n  \"fecha\": \"2026-11-04\",\n  \"turno\": \"Mañana\",\n  \"personas\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Esperado: 400. El documento queda intacto."
+          }
+        },
+        {
+          "name": "Verificar tras PUT incompleto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Esperado: personas 3 y estado pendiente."
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - IDs y campos rechazados",
+      "item": [
+        {
+          "name": "10. ID invalido (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/no-es-un-id/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "no-es-un-id",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 400 HTML."
+          }
+        },
+        {
+          "name": "11. ID valido ausente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{idAusente}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{idAusente}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 404 HTML."
+          }
+        },
+        {
+          "name": "Campo extra _id (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Ana Ejemplo",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ana@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Mañana",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "2",
+                  "type": "text"
+                },
+                {
+                  "key": "estado",
+                  "value": "pendiente",
+                  "type": "text"
+                },
+                {
+                  "key": "_id",
+                  "value": "{{id}}",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 400, sin escritura."
+          }
+        },
+        {
+          "name": "Personas vacio (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "estudiante",
+                  "value": "Ana Ejemplo",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "ana@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "type": "text"
+                },
+                {
+                  "key": "fecha",
+                  "value": "2026-11-04",
+                  "type": "text"
+                },
+                {
+                  "key": "turno",
+                  "value": "Mañana",
+                  "type": "text"
+                },
+                {
+                  "key": "personas",
+                  "value": "",
+                  "type": "text"
+                },
+                {
+                  "key": "estado",
+                  "value": "pendiente",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Esperado: 400, sin escritura."
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Persistencia y heredado",
+      "item": [
+        {
+          "name": "12. Tras reiniciar - API",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas/{{id}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas",
+                "{{id}}"
+              ]
+            },
+            "description": "Ejecutar después de reiniciar el servidor. Esperado: mismos valores."
+          }
+        },
+        {
+          "name": "12. Tras reiniciar - edicion web",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/{{id}}/editar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "{{id}}",
+                "editar"
+              ]
+            },
+            "description": "Ejecutar después de reiniciar. Esperado: siete campos persistentes."
+          }
+        },
+        {
+          "name": "13. Estado global",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/estado",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "estado"
+              ]
+            },
+            "description": "Esperado: JSON con la cantidad global de reservas."
+          }
+        },
+        {
+          "name": "Listado HTML",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas"
+              ]
+            },
+            "description": "Esperado: 200, arreglo simple, sin paginacion."
+          }
+        },
+        {
+          "name": "Formulario de alta",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reservas/nueva",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reservas",
+                "nueva"
+              ]
+            },
+            "description": "Esperado: 200."
+          }
+        },
+        {
+          "name": "API paginada TP10",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas?sala=Sala%20Norte&orden=personas-asc&pagina=1&limite=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas"
+              ],
+              "query": [
+                {
+                  "key": "sala",
+                  "value": "Sala Norte",
+                  "disabled": false
+                },
+                {
+                  "key": "orden",
+                  "value": "personas-asc",
+                  "disabled": false
+                },
+                {
+                  "key": "pagina",
+                  "value": "1",
+                  "disabled": false
+                },
+                {
+                  "key": "limite",
+                  "value": "2",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Esperado: datos, pagina, limite, total, paginas."
+          }
+        },
+        {
+          "name": "API pagina invalida (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservas?pagina=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservas"
+              ],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "0",
+                  "disabled": false
+                }
+              ]
+            },
+            "description": "Esperado: 400 JSON."
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "id",
+      "value": "PEGAR_ID_DE_ANA"
+    },
+    {
+      "key": "idBruno",
+      "value": "PEGAR_ID_DE_BRUNO"
+    },
+    {
+      "key": "idAusente",
+      "value": "000000000000000000000000"
+    }
+  ]
+}

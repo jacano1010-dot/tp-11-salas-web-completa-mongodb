@@ -1,0 +1,187 @@
+<section>
+  <p><%= seccion %></p>
+
+  <h2>Editar reserva</h2>
+
+  <p>
+    Modificá los valores de la reserva
+    <strong>#<%= id %></strong> y guardá el reemplazo completo.
+    El identificador se toma de la ruta y no es editable.
+  </p>
+
+  <% if (errores && errores.length > 0) { %>
+    <div class="alerta" role="alert">
+      <h3>No se pudo guardar la reserva</h3>
+
+      <ul>
+        <% errores.forEach((error) => { %>
+          <li><%= error %></li>
+        <% }) %>
+      </ul>
+
+      <p>
+        Revisá los valores recibidos, que se conservan
+        en el formulario. El documento guardado no cambió.
+      </p>
+    </div>
+  <% } %>
+
+  <form
+    class="formulario"
+    action="/reservas/<%= id %>/editar"
+    method="POST"
+  >
+    <div class="formulario-grupo">
+      <label for="estudiante">
+        Nombre del estudiante
+      </label>
+
+      <input
+        type="text"
+        id="estudiante"
+        name="estudiante"
+        value="<%= valores.estudiante || '' %>"
+        required
+      >
+    </div>
+
+    <div class="formulario-grupo">
+      <label for="email">
+        Correo electrónico
+      </label>
+
+      <input
+        type="email"
+        id="email"
+        name="email"
+        value="<%= valores.email || '' %>"
+        required
+      >
+    </div>
+
+    <div class="formulario-grupo">
+      <label for="sala">
+        Sala de estudio
+      </label>
+
+      <select id="sala" name="sala" required>
+        <option value="">
+          Seleccionar sala
+        </option>
+
+        <% if (valores.sala && !salasPermitidas.includes(valores.sala)) { %>
+          <option value="<%= valores.sala %>" selected>
+            <%= valores.sala %> (valor recibido)
+          </option>
+        <% } %>
+
+        <% salasPermitidas.forEach((sala) => { %>
+          <option
+            value="<%= sala %>"
+            <%= valores.sala === sala ? "selected" : "" %>
+          >
+            <%= sala %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="formulario-grupo">
+      <label for="fecha">
+        Fecha de la reserva
+      </label>
+
+      <input
+        type="date"
+        id="fecha"
+        name="fecha"
+        value="<%= valores.fecha || '' %>"
+        required
+      >
+    </div>
+
+    <div class="formulario-grupo">
+      <label for="turno">
+        Turno
+      </label>
+
+      <select id="turno" name="turno" required>
+        <option value="">
+          Seleccionar turno
+        </option>
+
+        <% if (valores.turno && !turnosPermitidos.includes(valores.turno)) { %>
+          <option value="<%= valores.turno %>" selected>
+            <%= valores.turno %> (valor recibido)
+          </option>
+        <% } %>
+
+        <% turnosPermitidos.forEach((turno) => { %>
+          <option
+            value="<%= turno %>"
+            <%= valores.turno === turno ? "selected" : "" %>
+          >
+            <%= turno %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="formulario-grupo">
+      <label for="personas">
+        Cantidad de personas
+      </label>
+
+      <input
+        type="number"
+        id="personas"
+        name="personas"
+        min="1"
+        max="6"
+        step="1"
+        value="<%= valores.personas ?? '' %>"
+        required
+      >
+    </div>
+
+    <div class="formulario-grupo">
+      <label for="estado">
+        Estado de la reserva
+      </label>
+
+      <select id="estado" name="estado" required>
+        <option value="">
+          Seleccionar estado
+        </option>
+
+        <% if (valores.estado && !estadosPermitidos.includes(valores.estado)) { %>
+          <option value="<%= valores.estado %>" selected>
+            <%= valores.estado %> (valor recibido)
+          </option>
+        <% } %>
+
+        <% estadosPermitidos.forEach((estado) => { %>
+          <option
+            value="<%= estado %>"
+            <%= valores.estado === estado ? "selected" : "" %>
+          >
+            <%= estado %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <button type="submit" class="boton">
+      Guardar reemplazo
+    </button>
+  </form>
+
+  <div class="botones">
+    <a
+      href="/reservas/<%= id %>"
+      class="boton boton-secundario"
+    >
+      Cancelar y volver al detalle
+    </a>
+  </div>
+</section>
